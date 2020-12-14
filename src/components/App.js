@@ -15,6 +15,14 @@ class App extends React.Component {
     }
   }
 
+  fetchPets = () => {
+    let endpoint = '/api/pets'
+
+    fetch(endpoint)
+      .then(res => res.json())
+      .then(pets => this.setState({ pets: pets }))
+  }
+
   render() {
     return (
       <div className="ui container">
@@ -24,10 +32,12 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters />
+              <Filters 
+                onFindPetsClick={this.fetchPets}
+              />
             </div>
             <div className="twelve wide column">
-              <PetBrowser />
+              <PetBrowser pets={this.state.pets}/>
             </div>
           </div>
         </div>
